@@ -41,7 +41,8 @@ annual file for 2020 and 2021).
 
 | Variable | Meaning | Availability |
 |---|---|---|
-| V5011 / V50111 / V501111 | "Alguma pessoa do domicilio recebeu outro programa social" / this person received / value. Bolsa Familia is **not separate**: it is inside "other social programme". | Old questionnaire: visit 1, 2012 to Q3 2015 |
+| V5010 / V50101 / V501011 | "Alguma pessoa do domicilio recebeu BF ou PETI" / this person received / value. Bolsa Familia shares the item with PETI (PETI cash was folded into BF in 2006, so PETI-only amounts are rare). | Old questionnaire: visit 1, 2012 to Q3 2015 |
+| V5011 / V50111 / V501111 | "Outro programa social" (other programmes, not BF) | Old questionnaire: visit 1, 2012 to Q3 2015 |
 | V5002A / V5002A2 | "Recebeu Bolsa Familia" / value received | New questionnaire, **first available Q4 2015** (full year from 2016) |
 | V5001A / V5001A2 | BPC-LOAS receipt / value | Q4 2015 on |
 | V5003A / V5003A2 | Other social programme receipt / value | Q4 2015 on |
@@ -62,6 +63,9 @@ moved to the Auxilio Emergencial, which is not in V5002A2. Series for
 
 ## Implication for the 2012-2015 overlap
 
-PNAD (catch-all V1273 with imputation) and PNAD Continua (V501111 "other
-social programme" until Q3 2015, V5002A2 from Q4 2015) both measure BF
-indirectly in 2012-2015. Only from 2016 does a survey item isolate BF.
+PNAD has no BF item (catch-all V1273 plus imputation). PNAD Continua has a
+direct item in every year: "BF ou PETI" (V501011) until Q3 2015 and
+"Bolsa Familia" (V5002A2) from Q4 2015. The overlap therefore compares an
+imputed PNAD measure with a directly reported PNADC measure. (An earlier
+draft of this note missed V5010 because its label abbreviates Bolsa
+Familia as "BF".)

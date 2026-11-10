@@ -5,9 +5,9 @@ programmes, rents, etc.) is collected once a year, in the 1st visit
 (2012-2019, 2022 on) or the 5th visit (2016 on; the only one for 2020-2021).
 
 Bolsa Familia item:
-  - 2012 to Q3 2015 (old questionnaire): no separate item. BF is inside
-    V5011/V50111/V501111 "outro programa social" (any other social
-    programme, which in practice is mostly BF).
+  - 2012 to Q3 2015 (old questionnaire): V5010/V50101/V501011 "recebeu
+    BF ou PETI" (household filter / person / value). BF shares the item
+    with PETI (small: PETI cash was merged into BF in 2006).
   - From Q4 2015 (new questionnaire): V5002A "recebeu Bolsa Familia" and
     V5002A2 value; other programmes in V5003A/V5003A2; BPC in V5001A/A2.
     The label stays "Bolsa Familia" in later dictionaries, but the item
@@ -29,7 +29,8 @@ COLS = [
     "V1032", "V2001", "V2003", "V2005", "V2009",
     # old questionnaire (2012-2015 Q3): household-level filter + person + value
     "V5009", "V50091", "V500911",   # BPC
-    "V5011", "V50111", "V501111",   # other social programme (includes BF)
+    "V5010", "V50101", "V501011",   # Bolsa Familia or PETI
+    "V5011", "V50111", "V501111",   # other social programme
     # new questionnaire (2015 Q4 on)
     "V5001A", "V5001A2",            # BPC
     "V5002A", "V5002A2",            # Bolsa Familia
@@ -122,7 +123,7 @@ def person_frame(df: pd.DataFrame, year: int, concept: str = "habitual") -> pd.D
     converted to average prices of the survey year with deflator CO1.
     concept="effective" uses VD5002 with deflator CO1e instead.
     BF: V5002A2 where the new item exists; otherwise (2012-2015 Q1-Q3)
-    V501111 "other social programme" as the closest available proxy.
+    V501011 "BF or PETI".
     """
     x = df.copy()
     for c in ("TRIMESTRE", "UF"):
@@ -135,10 +136,10 @@ def person_frame(df: pd.DataFrame, year: int, concept: str = "habitual") -> pd.D
     defl = defl[defl["ano"] == year][["trim", "uf", dcol]].rename(columns={dcol: "co1"})
     x = x.merge(defl, left_on=["TRIMESTRE", "UF"], right_on=["trim", "uf"], how="left")
     bf_new = x["V5002A2"] if "V5002A2" in x else pd.Series(np.nan, index=x.index)
-    bf_old = x["V501111"] if "V501111" in x else pd.Series(np.nan, index=x.index)
+    bf_old = x["V501011"] if "V501011" in x else pd.Series(np.nan, index=x.index)
     has_new = bf_new.notna().groupby(x["hh"]).transform("any") | (
         x["V5002A"].notna() if "V5002A" in x else False)
-    x["bf_item"] = np.where(has_new, "V5002A2", "V501111")
+    x["bf_item"] = np.where(has_new, "V5002A2", "V501011")
     x["bf_value"] = np.where(has_new, bf_new.fillna(0), bf_old.fillna(0))
     x["bpc_value"] = (x["V5001A2"] if "V5001A2" in x else 0)
     x["n_members"] = x.groupby("hh")["hh"].transform("size")
