@@ -62,7 +62,8 @@ def plot_series(s):
                 ax.plot(gg["year"], 100 * gg[var], color=COLORS[z], lw=2, marker=mk,
                         ms=4.5, label=f"${z:.2f}/day" if cs == "1981 - 2011" else None)
             last = g.iloc[-1]
-            ax.annotate(f"${z:.2f}", (last["year"], 100 * last[var]), xytext=(6, 0),
+            dy = {3.00: -4, 4.20: 4, 8.30: 0}[z] if var == "poverty_gap" else 0
+            ax.annotate(f"${z:.2f}", (last["year"], 100 * last[var]), xytext=(6, dy),
                         textcoords="offset points", va="center", fontsize=9, color=INK)
         ax.set_ylabel(lab, color=INK)
         ax.grid(axis="y", color=GRID, lw=0.8)
@@ -185,7 +186,21 @@ def plot_decomp(dec):
 
 def md_tables(dec, el, version):
     agg = dec[(dec.kind == "aggregate")].copy()
-    lines = [f"# M3 tables (PIP `{version}`)", "",
+    lines = [f"# M3 tables (PIP `{version}`)", "", "## Method", "",
+             "- Datt-Ravallion: P(mu, L) with mu the PIP survey mean (2021 PPP $/day) and L the "
+             "Lorenz curve. P(mu_end, L_start) is the PIP headcount (or gap) of the start survey "
+             "at the line z * mu_start / mu_end; P(mu_start, L_end) is the end survey at "
+             "z * mu_end / mu_start. This is exact because headcount and the normalized gap "
+             "depend on incomes only through y / z. Growth and redistribution are the Shapley "
+             "averages over both reference years (sum exactly to the change). PIP rounds "
+             "query lines to $0.01 and outputs to 4 decimals (error under 0.05 points here).",
+             "- Spells never cross the 2011 (PNAD) / 2012 (PNAD Continua) break.",
+             "- Growth-elasticity benchmark (Bourguignon 2003): log-normal welfare, sigma from "
+             "the start-year Gini (G = 2 Phi(sigma/sqrt2) - 1) held fixed, mean moved by the "
+             "survey mean (or by WDI GDP per capita, PPP 2021). Empirical neutral uses the "
+             "actual start-year distribution scaled to the end-year mean. Rates are "
+             "100 * ln(end/start) / years.",
+             "",
              "## Datt-Ravallion decomposition, multi-year spells",
              "", "Changes in percentage points (headcount) or points of the line (poverty gap), "
              "whole spell. Shapley split (exact). DR residual is from the original "

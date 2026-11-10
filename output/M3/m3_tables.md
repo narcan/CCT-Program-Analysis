@@ -1,5 +1,11 @@
 # M3 tables (PIP `20260922_2021_01_02_PROD`)
 
+## Method
+
+- Datt-Ravallion: P(mu, L) with mu the PIP survey mean (2021 PPP $/day) and L the Lorenz curve. P(mu_end, L_start) is the PIP headcount (or gap) of the start survey at the line z * mu_start / mu_end; P(mu_start, L_end) is the end survey at z * mu_end / mu_start. This is exact because headcount and the normalized gap depend on incomes only through y / z. Growth and redistribution are the Shapley averages over both reference years (sum exactly to the change). PIP rounds query lines to $0.01 and outputs to 4 decimals (error under 0.05 points here).
+- Spells never cross the 2011 (PNAD) / 2012 (PNAD Continua) break.
+- Growth-elasticity benchmark (Bourguignon 2003): log-normal welfare, sigma from the start-year Gini (G = 2 Phi(sigma/sqrt2) - 1) held fixed, mean moved by the survey mean (or by WDI GDP per capita, PPP 2021). Empirical neutral uses the actual start-year distribution scaled to the end-year mean. Rates are 100 * ln(end/start) / years.
+
 ## Datt-Ravallion decomposition, multi-year spells
 
 Changes in percentage points (headcount) or points of the line (poverty gap), whole spell. Shapley split (exact). DR residual is from the original start-year-reference method.
