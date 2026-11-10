@@ -95,22 +95,30 @@ def _bf_values(params) -> set[float]:
 
 def _legacy_values(year: int) -> set[float]:
     """Values from the pre-BF federal programmes (Bolsa Escola, Bolsa
-    Alimentacao, Auxilio Gas, Cartao Alimentacao) and their combinations.
-    Legacy benefits were phased out by 2006-2007; we allow them up to 2007.
-    PETI (R$25/40 per child) was merged into BF only in 2006 and kept its
-    own values; we allow up to 3 children."""
+    Alimentacao, Auxilio Gas, Cartao Alimentacao, PETI).
+
+    Up to 2005, when these programmes were still large, all combinations
+    are allowed (a family could hold several). Migration to BF was mostly
+    complete by 2006, so in 2006-2007 only single-programme amounts are
+    allowed. None after 2007 (PETI cash was folded into BF in 2006;
+    auxilio gas ended for good by 2008)."""
     if year > 2007:
         return set()
     be = [0, 15, 30, 45]                       # Bolsa Escola
-    ba = [0, 15, 30, 45] if year >= 2001 else [0]  # Bolsa Alimentacao
+    ba = [0, 15, 30, 45]                       # Bolsa Alimentacao
     ag = [0, 7.5] if year >= 2002 else [0]     # Auxilio Gas, monthly
     ca = [0, 50] if year >= 2003 else [0]      # Cartao Alimentacao
     peti = [0, 25, 50, 75, 40, 80, 120]
     out = set()
-    for a, b, c, d, e in itertools.product(be, ba, ag, ca, peti):
-        v = a + b + c + d + e
-        if v > 0:
-            out.add(v)
+    if year <= 2005:
+        for a, b, c, d, e in itertools.product(be, ba, ag, ca, peti):
+            v = a + b + c + d + e
+            if v > 0:
+                out.add(v)
+        return out
+    for prog in (be, ba, ag, peti):
+        out |= {v for v in prog if v > 0}
+    out.add(15.0)  # auxilio gas paid bimonthly
     return out
 
 
@@ -125,16 +133,20 @@ def typical_values(year: int, include_legacy: bool = True) -> frozenset:
     if include_legacy:
         vals |= _legacy_values(year)
         # BF families could also still hold Auxilio Gas / PETI in transition.
-        if year <= 2007:
+        if year <= 2005:
             extra = set()
             for v in list(_bf_values(BF_PARAMS.get(year))):
                 for add in (7.5, 15, 25, 40):
                     extra.add(v + add)
             vals |= extra
     out = set()
+    mw = MIN_WAGE.get(year, np.inf)
     for v in vals:
-        out.add(float(np.floor(v)))
-        out.add(float(np.ceil(v)))
+        for r in (float(np.floor(v)), float(np.ceil(v))):
+            # amounts at or above the minimum wage are BPC/pensions, never
+            # a programme combination we want to claim
+            if r < mw:
+                out.add(r)
     return frozenset(out)
 
 
@@ -199,3 +211,97 @@ def poverty_table(pc_with: np.ndarray, pc_without: np.ndarray,
                      "pct_reduction": 100 * (p0 - p1) / p0 if p0 else np.nan,
                      "pp_reduction": 100 * (p0 - p1)})
     return pd.DataFrame(rows)
+
+
+# --------------------------------------------------------------------------
+# PNAD: person-level frame with per-capita income with and without BF
+# --------------------------------------------------------------------------
+def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "tv") -> pd.DataFrame:
+    """One row per household member (IBGE definition: condition in household
+    1-5, i.e. excluding boarders, domestic workers and their relatives),
+    with household per-capita income with and without imputed BF income.
+
+    Household income is V4721 (monthly household income, all sources, all
+    members). Households with undeclared income for any member (V4721
+    missing or coded 999999999999) are dropped, as in IBGE's own per-capita
+    tabulations. pc income = V4721 / number of members.
+    """
+    from .pnad import clean_income, household_members
+
+    df = pes.copy()
+    df["hh"] = df["V0102"].astype(str) + df["V0103"].astype(str)
+    df["member"] = household_members(df)
+    df = df[df["member"]].copy()
+    df["hh_income"] = clean_income(df["V4721"])
+    v = clean_income(df["V1273"]) if "V1273" in df else pd.Series(np.nan, index=df.index)
+    df["v1273"] = v
+    df["bf_flag"] = flag_bf_pnad(v, year, rule)
+    df["bf_value"] = np.where(df["bf_flag"], v, 0.0)
+    g = df.groupby("hh")
+    df["n_members"] = g["hh"].transform("size")
+    df["hh_bf"] = g["bf_value"].transform("sum")
+    df["v1273_0"] = df["v1273"].fillna(0.0)
+    df["hh_other"] = df.groupby("hh")["v1273_0"].transform("sum")
+    df["pc_with"] = df["hh_income"] / df["n_members"]
+    df["pc_without"] = (df["hh_income"] - df["hh_bf"]).clip(lower=0) / df["n_members"]
+    df["weight"] = pd.to_numeric(df["V4729"], errors="coerce")
+    df["uf"] = pd.to_numeric(df["UF"], errors="coerce")
+    keep = df["hh_income"].notna() & df["weight"].notna()
+    return df.loc[keep, ["hh", "uf", "V0401", "V8005", "weight", "n_members",
+                         "hh_income", "hh_bf", "hh_other", "bf_flag", "v1273",
+                         "pc_with", "pc_without"]]
+
+
+# --------------------------------------------------------------------------
+# INPC (IBGE) and deflated lines
+# --------------------------------------------------------------------------
+INPC_URL = ("https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/"
+            "INPC/Serie_Historica/inpc_SerieHist.zip")
+_MONTHS = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET",
+           "OUT", "NOV", "DEZ"]
+
+
+@lru_cache(maxsize=1)
+def inpc() -> pd.Series:
+    """Monthly INPC index (Dec 1993 = 100) indexed by (year, month)."""
+    import zipfile
+    from .pnad import RAW, curl
+
+    d = RAW / "inpc"
+    z = d / "inpc_SerieHist.zip"
+    if not z.exists():
+        curl(INPC_URL, z)
+    with zipfile.ZipFile(z) as zf:
+        name = [n for n in zf.namelist() if n.lower().endswith(".xls")][0]
+        zf.extract(name, d)
+    raw = pd.read_excel(d / name, header=None)
+    rows, year = [], None
+    for _, r in raw.iterrows():
+        y, m, idx = r[0], r[1], r[2]
+        if isinstance(y, (int, float)) and not pd.isna(y) and 1990 < y < 2100:
+            year = int(y)
+        if year and isinstance(m, str) and m.strip()[:3].upper() in _MONTHS:
+            try:
+                rows.append((year, _MONTHS.index(m.strip()[:3].upper()) + 1, float(idx)))
+            except (TypeError, ValueError):
+                continue
+    s = pd.DataFrame(rows, columns=["year", "month", "inpc"]).drop_duplicates(["year", "month"])
+    return s.set_index(["year", "month"])["inpc"]
+
+
+def deflate_line(value_base: float, year: int, month: int | None = None,
+                 base: tuple[int, int] = LINE_BASE) -> float:
+    """Express a line set at `base` (year, month) prices in prices of
+    (year, month); month=None uses the average of the calendar year."""
+    s = inpc()
+    b = s.loc[base]
+    if month is None:
+        t = s.loc[year].mean()
+    else:
+        t = s.loc[(year, month)]
+    return value_base * t / b
+
+
+def lines_for(year: int, month: int | None = 9) -> dict[str, float]:
+    return {"extreme": deflate_line(LINE_EXTREME_2018, year, month),
+            "poverty": deflate_line(LINE_POVERTY_2018, year, month)}
