@@ -53,7 +53,7 @@ def test_typical_values_2006_and_2015():
     assert 102 in m.typical_values(2014)  # pre-June-2014 schedule still allowed
     assert 102 not in tv15
     assert all(v < m.MIN_WAGE[2015] for v in tv15)
-    assert m.typical_values(2002) and not (set(m.typical_values(2002)) & {65, 95})
+    assert m.typical_values(2002) and max(m.typical_values(2002)) < m.MIN_WAGE[2002]
 
 
 def test_flag_rules():
