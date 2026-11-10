@@ -20,6 +20,8 @@ Cases:
   thesis_pess  thesis data fgt0ppp2, 1981-2009
 Also reported: SD of year-to-year changes (pp and log points) between
 consecutive survey years, raw and after removing GDP growth.
+Last row of noise.csv (era_split_full_fit): residual SD of the full-period
+fit before 1995 (sigma_u_log column) and from 1995 (sigma_white_log column).
 Run: python analysis/m2_noise.py   -> output/M2/noise.csv
 """
 import sys
@@ -150,12 +152,35 @@ def noise_params():
     p = {k: (float(df.loc[k, "rho"]), float(df.loc[k, "sigma_u_log"]))
          for k in ("main", "pessimistic", "thesis_main", "thesis_pess")}
     p["main_rho05"] = (0.5, p["main"][1])
+    # mixed: the realistic long-series case. Residual SD from the full-period
+    # fit, split at 1995, so the 1980s-early 1990s are noisy and later years
+    # calm; rho from the main case. sigma is then a {year: sd} mapping.
+    pre, post = era_sds()
+    p["mixed"] = (p["main"][0], {y: (pre if y < 1995 else p["main"][1]) for y in range(1981, 2025)})
     return p
+
+
+def era_sds():
+    """Residual SD before and from 1995 in the pessimistic (1981-2019) fit."""
+    c = CASES["pessimistic"]
+    g = gdp_growth()
+    h = pip_series()
+    h = h[(h.index >= c["start"]) & (h.index <= c["end"]) & ~h.index.isin(COVID)]
+    years = list(h.index)
+    y = np.log(h.to_numpy())
+    X = design(years, g, c["kinks"], c["spell"])
+    fit = fit_ar1(y, X, years)
+    e = y - X @ fit["b"]
+    yr = np.array(years)
+    return float(e[yr < 1995].std()), float(e[yr >= 1995].std())
 
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     df = estimate_all()
+    pre, post = era_sds()
+    df = pd.concat([df, pd.DataFrame([dict(case="era_split_full_fit", source="pip", start=1981, end=2019,
+                                           sigma_u_log=pre, sigma_white_log=post)])])
     df.to_csv(OUT / "noise.csv", index=False, float_format="%.4f")
     pd.set_option("display.width", 200)
     print(df.round(4).to_string())
