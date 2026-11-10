@@ -22,5 +22,5 @@
 | `pip_versions.json` | `f5a856f62997a7f6` |
 | `wdi_BRA_NY.GDP.PCAP.KD.json` | `3bc3a8cd634fd8f9` |
 | `wdi_BRA_NY.GDP.PCAP.PP.KD.json` | `7a04e1c51e411520` |
-| `cf_*.json` (269 counterfactual single-year queries) | see files |
+| `cf_*.json` (275 counterfactual single-year queries) | see files |
 
