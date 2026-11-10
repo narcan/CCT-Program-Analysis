@@ -1,0 +1,232 @@
+{
+  "table4_reproduced": true,
+  "table5_reproduced": true,
+  "table6_reproduced": true,
+  "H1.1": {
+    "n_post_terms_tested": 20,
+    "n_significant_5pct": 5,
+    "significant": [
+      {
+        "spec": "with Gini change",
+        "outcome": "fgt0_ann",
+        "model": "two steps",
+        "term": "cum 2008-09",
+        "coef": -0.0875,
+        "p": 0.0
+      },
+      {
+        "spec": "with Gini change",
+        "outcome": "fgt1_ann",
+        "model": "two steps",
+        "term": "cum 2008-09",
+        "coef": -0.1023,
+        "p": 0.012
+      },
+      {
+        "spec": "without Gini change",
+        "outcome": "fgt0_ann",
+        "model": "two steps",
+        "term": "cum 2008-09",
+        "coef": -0.1093,
+        "p": 0.0001
+      },
+      {
+        "spec": "without Gini change",
+        "outcome": "fgt0_ann",
+        "model": "single post-2003 dummy",
+        "term": "post2004",
+        "coef": -0.0767,
+        "p": 0.0433
+      },
+      {
+        "spec": "without Gini change",
+        "outcome": "fgt1_ann",
+        "model": "two steps",
+        "term": "cum 2008-09",
+        "coef": -0.127,
+        "p": 0.0012
+      }
+    ],
+    "primary_fgt0_with_gini": [
+      {
+        "model": "two steps",
+        "term": "post2004",
+        "coef": -0.0129,
+        "p": 0.8273
+      },
+      {
+        "model": "two steps",
+        "term": "post2008",
+        "coef": -0.0746,
+        "p": 0.192
+      },
+      {
+        "model": "two steps",
+        "term": "cum 2004-05",
+        "coef": -0.0129,
+        "p": 0.8273
+      },
+      {
+        "model": "two steps",
+        "term": "cum 2008-09",
+        "coef": -0.0875,
+        "p": 0.0
+      },
+      {
+        "model": "single post-2003 dummy",
+        "term": "post2004",
+        "coef": -0.0518,
+        "p": 0.1624
+      }
+    ],
+    "verdict": "refuted"
+  },
+  "H1.2": {
+    "primary_rank_t": 2,
+    "primary_rank_abs_t": 2,
+    "primary_t": -1.453,
+    "primary_coef": -0.0518,
+    "n_breaks": 14,
+    "variants_rank_t": [
+      {
+        "sample": "survey years",
+        "outcome": "fgt0_ann",
+        "controls": "GDP + Gini",
+        "rank_t": 2
+      },
+      {
+        "sample": "survey years",
+        "outcome": "fgt0_ann",
+        "controls": "GDP only",
+        "rank_t": 1
+      },
+      {
+        "sample": "survey years",
+        "outcome": "fgt1_ann",
+        "controls": "GDP + Gini",
+        "rank_t": 3
+      },
+      {
+        "sample": "survey years",
+        "outcome": "fgt1_ann",
+        "controls": "GDP only",
+        "rank_t": 2
+      },
+      {
+        "sample": "interpolated (thesis)",
+        "outcome": "rcfgt0",
+        "controls": "GDP + Gini",
+        "rank_t": 1
+      },
+      {
+        "sample": "interpolated (thesis)",
+        "outcome": "rcfgt0",
+        "controls": "GDP only",
+        "rank_t": 1
+      },
+      {
+        "sample": "interpolated (thesis)",
+        "outcome": "rcfgt1",
+        "controls": "GDP + Gini",
+        "rank_t": 2
+      },
+      {
+        "sample": "interpolated (thesis)",
+        "outcome": "rcfgt1",
+        "controls": "GDP only",
+        "rank_t": 1
+      }
+    ],
+    "verdict": "refuted",
+    "top3_in_any_variant": true
+  },
+  "pair_placebo_2008_09": [
+    {
+      "outcome": "fgt0_ann",
+      "controls": "GDP + Gini",
+      "coef": -0.0858,
+      "p": 0.0,
+      "p_hc3": 0.0001,
+      "rank_t": 1,
+      "n_pairs": 22,
+      "share_p_lt_05": 0.3182
+    },
+    {
+      "outcome": "fgt0_ann",
+      "controls": "GDP only",
+      "coef": -0.1057,
+      "p": 0.0001,
+      "p_hc3": 0.002,
+      "rank_t": 1,
+      "n_pairs": 22,
+      "share_p_lt_05": 0.2273
+    },
+    {
+      "outcome": "fgt1_ann",
+      "controls": "GDP + Gini",
+      "coef": -0.0965,
+      "p": 0.0184,
+      "p_hc3": 0.1441,
+      "rank_t": 1,
+      "n_pairs": 22,
+      "share_p_lt_05": 0.2727
+    },
+    {
+      "outcome": "fgt1_ann",
+      "controls": "GDP only",
+      "coef": -0.1205,
+      "p": 0.0017,
+      "p_hc3": 0.0198,
+      "rank_t": 1,
+      "n_pairs": 22,
+      "share_p_lt_05": 0.2273
+    }
+  ],
+  "table5_recoded": {
+    "non_cct_countries_after_recode": "Venezuela",
+    "pooled_survey_fgt0": [
+      {
+        "coding": "original (thesis)",
+        "controls": "GDP + Gini + trend",
+        "post_cct_coef": -0.0613,
+        "p_crv1": 0.1576,
+        "p_wcb_webb": 0.1865
+      },
+      {
+        "coding": "original (thesis)",
+        "controls": "GDP + trend",
+        "post_cct_coef": -0.0722,
+        "p_crv1": 0.1148,
+        "p_wcb_webb": 0.138
+      },
+      {
+        "coding": "recoded, Ecuador CCT (broad)",
+        "controls": "GDP + Gini + trend",
+        "post_cct_coef": -0.0327,
+        "p_crv1": 0.422,
+        "p_wcb_webb": 0.464
+      },
+      {
+        "coding": "recoded, Ecuador CCT (broad)",
+        "controls": "GDP + trend",
+        "post_cct_coef": -0.0511,
+        "p_crv1": 0.198,
+        "p_wcb_webb": 0.2354
+      },
+      {
+        "coding": "recoded, Ecuador non-CCT (strict)",
+        "controls": "GDP + Gini + trend",
+        "post_cct_coef": -0.0428,
+        "p_crv1": 0.2694,
+        "p_wcb_webb": 0.3119
+      },
+      {
+        "coding": "recoded, Ecuador non-CCT (strict)",
+        "controls": "GDP + trend",
+        "post_cct_coef": -0.0519,
+        "p_crv1": 0.2006,
+        "p_wcb_webb": 0.2476
+      }
+    ]
+  }
+}

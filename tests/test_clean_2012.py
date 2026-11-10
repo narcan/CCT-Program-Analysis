@@ -20,12 +20,8 @@ KENYA_BLOCK = ("Kenya", range(2004, 2011))  # interpolated columns shifted in th
 KNOWN_DIFFS = {
     # variable: list of (country, years, reason)
     "*": [(*KENYA_BLOCK, "row block 2004-2010 corrupted in the CSV's i* columns")],
-    "ifgt0": [("Ukraine", range(1989, 1996), "CSV interpolates through a 0 in 1992 that the raw column no longer has"),
-              ("Chile", [2009], "raw column has 0, CSV has missing"),
-              ("Kyrgyz Republic", [1988], "raw column has 0, CSV has missing")],
-    "ifgt1": [("Ukraine", range(1989, 1996), "as ifgt0"),
-              ("Chile", [2009], "as ifgt0"),
-              ("Kyrgyz Republic", [1988], "as ifgt0")],
+    "ifgt0": [("Ukraine", range(1989, 1996), "CSV interpolates through a 0 in 1992 that the raw column no longer has")],
+    "ifgt1": [("Ukraine", range(1989, 1996), "as ifgt0")],
     "igenpop": [("Brazil", [1983, 1988], "raw population revised by about 1 million after interpolation"),
                 ("Mexico", [2005], "raw population revised by 1 million")],
     "igovconsumexp": [("Laos", range(1989, 2000), "CSV rounded to 3 significant digits"),
@@ -95,6 +91,13 @@ def test_lag_respects_year_gaps(d):
     b = d[d["country"] == "Brazil"].set_index("year")
     assert np.isnan(b.loc[1980, "lfgt0"])
     assert b.loc[1982, "lfgt0"] == b.loc[1981, "ifgt0"]
+
+
+def test_table5_rate_of_change_sample(d):
+    # Published Table 5 N: 189 Latin America CCT, 119 non-CCT country-years.
+    la = d[d["region"] == "Latin America"]
+    assert la.loc[la["eventualcct"] == 1, "rcfgt0"].notna().sum() == 189
+    assert la.loc[la["eventualcct"] == 0, "rcfgt0"].notna().sum() == 119
 
 
 def test_cct_recodes(d):

@@ -129,6 +129,13 @@ def cct_recodes(yearfromcct: pd.Series) -> pd.DataFrame:
     return pd.DataFrame({"cctstage": stage.astype(int), "cctstate": state.astype(int)}, index=y.index)
 
 
+# Raw poverty values of exactly 0 (Chile 2009, Kyrgyz Republic 1988): the
+# interpolated columns behind the published tables interpolate through the 0
+# but set the 0 cell itself to missing (so no -100% rate of change enters
+# Table 5). Reproduced here; the step is not in the surviving .do file.
+ZERO_IS_MISSING = ["fgt0ppp2", "fgt1ppp2"]
+
+
 def build(raw: pd.DataFrame | None = None) -> pd.DataFrame:
     """Rebuild every variable ThesisDataCoding.do creates. The ``i*`` columns
     already present in the CSV are kept as ``<name>_csv`` for comparison and
@@ -141,6 +148,8 @@ def build(raw: pd.DataFrame | None = None) -> pd.DataFrame:
         if icol in d.columns:
             new[f"{icol}_csv"] = d[icol]
         new[icol] = ipolate(d, src) * SCALE.get(icol, 1.0)
+        if src in ZERO_IS_MISSING:
+            new[icol] = new[icol].mask(d[src] == 0)
         new[f"{icol}_interp"] = (d[src].isna() & new[icol].notna()).astype(int)
     d = d.drop(columns=[i for _, i in IPOLATE if i in d.columns])
     d = pd.concat([d, pd.DataFrame(new, index=d.index)], axis=1)
