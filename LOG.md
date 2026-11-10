@@ -34,3 +34,26 @@ The port reproduces this, and it is needed to get the published Table 5 N of 189
 - Adoption dates were sourced by web search. The ECLAC database host could not be reached from this environment, so ECLAC dates come from search-engine copies of the records.
   Ecuador's classification is contested (conditions not enforced), so both codings are reported.
 - Gate: **go** (M1 has no kill criterion). The post-2003 Brazil pattern is real but rests on two to four observations, which is the question M2 (power) and M3 (refresh with real survey years) take up.
+
+## 2026-11-10: M0 literature gate
+
+- Laguinge, Gasparini & Neidhöfer read from abstracts and summaries only (full text blocked here); see `notes/laguinge_2025.md`.
+- They use PNAD only, with no Census 2022 or linked records; exposure is predicted participation x a born-1985+ cutoff. Kill criterion **not met**: M5 stays an extension, not a replication. Confirm against the PDF before writing `pap/M5.md`.
+- Competitor for M6: Britto et al., WIDER WP 2025/96 (CadÚnico x RAIS, place effects).
+
+## 2026-11-10: M2 gate
+
+- H2.1 **confirmed**. Size-adjusted power on PIP $3.00 survey years 1995-2024: mechanical 15% effect 91%; long-run effect at the top plausible size 10% (central exposure) to 16% (generous). Significant results overstate the effect 2-3x.
+- Kill criterion **met**: stop national time-series work on the long-run effect. Cross-country items stay parked. See `output/M2/M2_gate.md`.
+
+## 2026-11-10: M3 gate
+
+- The post-2003 acceleration survives on survey years: -2.7%/yr (1995-2002), -11.0%/yr (2003-2011), -14.6%/yr (2012-2014).
+- Datt-Ravallion at $3.00, 2003-2011: 10.0 points total, 5.6 growth, 4.4 redistribution. Log-normal benchmark predicts 5.4%/yr vs 11.0% actual.
+- H3.1 **not supported so far**: growth explains about half; the transfer would need to cover most of the 4.4 redistribution points, and M4 suggests roughly 2. See `output/M3/M3_summary.md`.
+
+## 2026-11-10: M4 gate
+
+- Pipeline reproduces Souza et al. (2019) for 2017 only with effective income (gaps +1.0 / -0.3 points); habitual income fails on extreme poverty (+4.3). Kill criterion **passes conditionally**: read TD 2499 to confirm their income concept before M5.
+- H4.1: 2015 part **refuted** (extreme-poverty cut 34-38%, above the 20-30% band); post-2023 part **supported** (about 72-74%).
+- Surveys capture about 70-85% of program spending. See `output/M4/M4_summary.md`.
