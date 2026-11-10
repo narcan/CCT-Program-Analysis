@@ -156,7 +156,11 @@ HOUSEHOLD_COLS = [
     "V0101", "UF", "V0102", "V0103", "V0104", "V0105", "V4105", "V4602",
     "V4611", "V4614", "V4617", "V4618", "V4619", "V4620", "V4621", "V4741",
     "V4742",
-    # 2004 and 2006 supplement items on social programmes (household level)
+    # 2004 supplement on social programmes (household level): auxilio-gas,
+    # Bolsa Familia, Cartao Alimentacao/Fome Zero, Bolsa Alimentacao,
+    # Bolsa Escola, PETI, other programme
+    "V2003", "V2005", "V0620", "V2007", "V2012", "V2014", "V1600",
+    # 2006 supplement on social programmes (household level)
     "V2401", "V2402", "V2403", "V2404", "V2405", "V2406", "V2407", "V2408",
     "V2409",
 ]
@@ -211,7 +215,8 @@ def _open_nested(paths: list[Path], workdir: Path) -> dict[str, Path]:
                     continue
                 keep = (re.search(r"(pes|dom)\d{4}", base, re.I)
                         or "input" in low or low.endswith(".zip"))
-                if not keep or "leitura" in low or "/cv/" in low:
+                if (not keep or "leitura" in low or "/cv/" in low or "status" in low
+                        or "marca" in low or low.endswith(".sas")):
                     continue
                 target = workdir / base
                 with zf.open(m) as src, open(target, "wb") as dst:
@@ -234,8 +239,8 @@ def extract_pnad(year: int, keep_raw: bool = False) -> tuple[pd.DataFrame, pd.Da
     names = list(files)
     pes_txt = files[_find(names, rf"^PES{year}\.txt$", r"^PES\d{4}\.txt$")]
     dom_txt = files[_find(names, rf"^DOM{year}\.txt$", r"^DOM\d{4}\.txt$")]
-    pes_in = files[_find(names, r"input.*pes", r"pes.*input")]
-    dom_in = files[_find(names, r"input.*dom", r"dom.*input")]
+    pes_in = files[_find(names, r"input.*pes\d{4}", r"input.*pes", r"pes.*input")]
+    dom_in = files[_find(names, r"input.*dom\d{4}", r"input.*dom", r"dom.*input")]
     lay_p = parse_sas_input(pes_in.read_text(encoding="latin-1"))
     lay_d = parse_sas_input(dom_in.read_text(encoding="latin-1"))
     pes = read_fwf(pes_txt, lay_p, PERSON_COLS)
