@@ -73,9 +73,12 @@ BF_PARAMS = {
     2014: (77, 35, 5, 42, 2),
     2015: (77, 35, 5, 42, 2),
 }
-# Previous schedule, still possible in September because of payment lags
-# right after a readjustment (2007-08 and 2009-09 changes).
-BF_PREV = {2007: (50, 15, 3, 0, 0), 2009: (62, 20, 3, 30, 2)}
+# Previous schedule, for years with a readjustment in the 12 months before
+# September: respondents often still report the old amount (recall, payment
+# lags). 2007-08, 2008-07, 2009-09, 2011-04 and 2014-06 changes.
+BF_PREV = {2007: (50, 15, 3, 0, 0), 2008: (58, 18, 3, 0, 0),
+           2009: (62, 20, 3, 30, 2), 2011: (68, 22, 3, 33, 2),
+           2014: (70, 32, 5, 38, 2)}
 BSP_YEARS = {2012, 2013, 2014, 2015}
 
 

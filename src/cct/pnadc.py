@@ -113,13 +113,14 @@ def deflators() -> pd.DataFrame:
     return d
 
 
-def person_frame(df: pd.DataFrame, year: int) -> pd.DataFrame:
+def person_frame(df: pd.DataFrame, year: int, concept: str = "habitual") -> pd.DataFrame:
     """Household members with per-capita income with and without BF.
 
-    Income concept: VD5008, IBGE's habitual household per-capita income
+    Income concept (default "habitual"): VD5008, IBGE's habitual household per-capita income
     (habitual work income plus effective income from other sources),
     excluding pensioners, domestic workers and their relatives, and
     converted to average prices of the survey year with deflator CO1.
+    concept="effective" uses VD5002 with deflator CO1e instead.
     BF: V5002A2 where the new item exists; otherwise (2012-2015 Q1-Q3)
     V501111 "other social programme" as the closest available proxy.
     """
@@ -130,7 +131,8 @@ def person_frame(df: pd.DataFrame, year: int) -> pd.DataFrame:
     x = x[cond.between(1, 16)].copy()  # 17-19: pensioner, domestic worker, relative
     x["hh"] = x["UPA"].astype(str) + x["V1008"].astype(str) + x["V1014"].astype(str)
     defl = deflators()
-    defl = defl[defl["ano"] == year][["trim", "uf", "co1"]]
+    dcol = "co1" if concept == "habitual" else "co1e"
+    defl = defl[defl["ano"] == year][["trim", "uf", dcol]].rename(columns={dcol: "co1"})
     x = x.merge(defl, left_on=["TRIMESTRE", "UF"], right_on=["trim", "uf"], how="left")
     bf_new = x["V5002A2"] if "V5002A2" in x else pd.Series(np.nan, index=x.index)
     bf_old = x["V501111"] if "V501111" in x else pd.Series(np.nan, index=x.index)
@@ -141,7 +143,9 @@ def person_frame(df: pd.DataFrame, year: int) -> pd.DataFrame:
     x["bpc_value"] = (x["V5001A2"] if "V5001A2" in x else 0)
     x["n_members"] = x.groupby("hh")["hh"].transform("size")
     x["hh_bf"] = x.groupby("hh")["bf_value"].transform("sum")
-    pc = x["VD5008"]
+    # habitual: VD5008; effective: VD5002 (effective work income in the
+    # reference month plus effective income from other sources)
+    pc = x["VD5008"] if concept == "habitual" else x["VD5002"]
     x["pc_with"] = pc * x["co1"]
     x["pc_without"] = (pc - x["hh_bf"] / x["n_members"]).clip(lower=0) * x["co1"]
     x["weight"] = x["V1032"]
