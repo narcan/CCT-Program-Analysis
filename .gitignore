@@ -1,0 +1,13 @@
+# Raw downloads and cleaned data are rebuilt from scripts; never committed.
+data/raw/*
+!data/raw/MANIFEST.md
+!data/raw/MANIFEST_*.md
+data/clean/*
+!data/clean/MANIFEST.md
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/

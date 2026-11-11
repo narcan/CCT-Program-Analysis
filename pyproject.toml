@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cct"
+version = "0.1.0"
+description = "CCTs and aggregate poverty, revisited: replication and extension of Avila (2012)"
+requires-python = ">=3.11"
+# Versions pinned to what is installed and tested in the project environment (Python 3.13).
+dependencies = [
+    "numpy==2.5.3",
+    "pandas==3.0.5",
+    "scipy==1.18.1",
+    "patsy==1.0.3",
+    "statsmodels==0.15.0",
+    "pyfixest==0.70.0",
+    "matplotlib==3.11.2",
+    "requests==2.34.2",
+    "pyarrow==26.0.1",
+    "xlrd==2.0.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
