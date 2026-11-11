@@ -135,7 +135,7 @@ Done when there is a power curve plot and a one-paragraph decision.
 Reading:
 
 - Gelman & Carlin (2014), "Beyond Power Calculations." [Link](https://sites.stat.columbia.edu/gelman/research/published/PPS551642_REV2.pdf)
-- Souza, Osorio, Paiva & Soares (2019), IPEA TD 2499. Source of the mechanical anchors. [Link](https://repositorio.ipea.gov.br/handle/11058/15191)
+- Souza, Osorio, Paiva & Soares (2019), IPEA TD 2499. Source of the mechanical anchors. [Link](https://repositorio.ipea.gov.br/handle/11058/9356)
 
 ---
 
