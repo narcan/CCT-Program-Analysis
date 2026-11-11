@@ -57,3 +57,10 @@ The port reproduces this, and it is needed to get the published Table 5 N of 189
 - Pipeline reproduces Souza et al. (2019) for 2017 only with effective income (gaps +1.0 / -0.3 points); habitual income fails on extreme poverty (+4.3). Kill criterion **passes conditionally**: read TD 2499 to confirm their income concept before M5.
 - H4.1: 2015 part **refuted** (extreme-poverty cut 34-38%, above the 20-30% band); post-2023 part **supported** (about 72-74%).
 - Surveys capture about 70-85% of program spending. See `output/M4/M4_summary.md`.
+
+## 2026-11-11: M4 correction
+
+- Primary specification changed to the TD 2499 method: PNAD uses the household rule `souza2019` (BPC removed, household sum of other income within the family's legal benefit bounds); PNAD Continua uses effective income (VD5002); lines at June 2018 prices. The old person-level rule (tv/tvb) and habitual income are kept as labelled sensitivities. Series, overlap and survey-vs-spending tables regenerated.
+- Kill criterion **passes**: all 9 printed Souza et al. years within 1.4 points (extreme) and 1.3 (poverty); the old specification fails 6 of 9. The rule was chosen after seeing the mismatch, so this is a pipeline fix, not an independent result.
+- New cuts in extreme poverty: 33% (PNAD) / 34% (PNADC) in 2015; 26% in 2017; 71% in 2025.
+- H4.1: 2015 part still **refuted** (33-34%, above the 20-30% band, as is Souza et al.'s own 31.7%); post-2023 part **supported** (71-72%). See `output/M4/M4_summary.md`.
