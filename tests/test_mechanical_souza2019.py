@@ -61,3 +61,23 @@ def test_bsp_2012_only_with_young_children():
     _, mx_old = m.souza2019_bounds(2012, [0], [1], [0], [6])
     assert mx_young[0] >= 70 * 6
     assert mx_old[0] == 70 + 32
+
+
+def test_primary_spec_defaults():
+    # since the M4 correction the TD 2499 household rule is the default
+    import inspect
+    sig = inspect.signature(m.pnad_person_frame)
+    assert sig.parameters["rule"].default == "souza2019"
+    assert m.LINE_BASE == (2018, 6)  # TD 2499 lines are in June 2018 reais
+    pes = _hh(["4", "4"], [35, 8], [50.0, 22.0], income=500.0)
+    a = m.pnad_person_frame(pes, 2009)
+    b = m.pnad_person_frame(pes, 2009, "souza2019")
+    assert np.allclose(a["pc_without"], b["pc_without"])
+
+
+def test_analysis_scripts_use_primary_spec():
+    src = (Path(__file__).resolve().parents[1] / "analysis")
+    t4 = (src / "m4_04_pnad_mechanical.py").read_text()
+    t5 = (src / "m4_05_pnadc_mechanical.py").read_text()
+    assert 'MAIN_RULE = {y: "souza2019" for y in YEARS}' in t4
+    assert 'MAIN_CONCEPT = "effective"' in t5

@@ -15,7 +15,9 @@ Two pieces:
    direct receipt questions in the 2004 and 2006 supplements and against
    PNAD Continua for 2012-2015. TD 2499's own rule (appendix 1.3) is a
    household-level variant, implemented as rule "souza2019" below; see
-   output/M4/M4_income_check.md.
+   output/M4/M4_income_check.md. Since the M4 correction (2026-11-11)
+   "souza2019" is the default and primary rule; the person-level rules are
+   kept as sensitivities.
 
 2. Poverty with and without BF income: weighted headcount (FGT0) of persons
    whose household per-capita income is at or below a line.
@@ -257,10 +259,12 @@ def bf_household_souza2019(df: pd.DataFrame, year: int) -> pd.Series:
 # Souza et al. (2019, TD 2499) measure poverty with fixed real lines equal to
 # the BF eligibility lines of 2018: R$89 (extreme poverty) and R$178
 # (poverty) per person per month, in force from July 2018 (Decreto
-# 9.396/2018), deflated with the INPC.
+# 9.396/2018), deflated with the INPC. TD 2499 (appendix 1.5) sets them in
+# June 2018 reais, so the base is June 2018 (the M4 summary used July 2018
+# before TD 2499 could be read; see output/M4/M4_income_check.md).
 LINE_EXTREME_2018 = 89.0
 LINE_POVERTY_2018 = 178.0
-LINE_BASE = (2018, 7)
+LINE_BASE = (2018, 6)
 
 
 def fgt0(pc_income: np.ndarray, weight: np.ndarray, line: float) -> float:
@@ -286,7 +290,7 @@ def poverty_table(pc_with: np.ndarray, pc_without: np.ndarray,
 # --------------------------------------------------------------------------
 # PNAD: person-level frame with per-capita income with and without BF
 # --------------------------------------------------------------------------
-def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "tv") -> pd.DataFrame:
+def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "souza2019") -> pd.DataFrame:
     """One row per household member (IBGE definition: condition in household
     1-5, i.e. excluding boarders, domestic workers and their relatives),
     with household per-capita income with and without imputed BF income.
@@ -296,8 +300,9 @@ def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "tv") -> pd.Data
     missing or coded 999999999999) are dropped, as in IBGE's own per-capita
     tabulations. pc income = V4721 / number of members.
 
-    rule: "tv", "tvb" or "lt_mw" (person-level, see flag_bf_pnad) or
-    "souza2019" (household-level rule of TD 2499).
+    rule: "souza2019" (default; household-level rule of TD 2499, the
+    primary specification since the M4 correction) or the person-level
+    sensitivity rules "tv", "tvb", "lt_mw" (see flag_bf_pnad).
     """
     from .pnad import clean_income, household_members
 
