@@ -1,85 +1,113 @@
-year,line,rate_with_bf,rate_without_bf,pct_reduction,persons_lifted_M,survey,concept
-2001,extreme,0.0769,0.0826,6.8984,0.9583,PNAD,V4721 (Sept)
-2001,poverty,0.2040,0.2078,1.8550,0.6482,PNAD,V4721 (Sept)
-2002,extreme,0.0651,0.0725,10.2969,1.2761,PNAD,V4721 (Sept)
-2002,poverty,0.1938,0.1996,2.9149,0.9939,PNAD,V4721 (Sept)
-2003,extreme,0.0686,0.0753,8.8455,1.1521,PNAD,V4721 (Sept)
-2003,poverty,0.1958,0.2018,2.9618,1.0338,PNAD,V4721 (Sept)
-2004,extreme,0.0586,0.0725,19.2281,2.4879,PNAD,V4721 (Sept)
-2004,poverty,0.1760,0.1888,6.8159,2.2967,PNAD,V4721 (Sept)
-2005,extreme,0.0518,0.0650,20.2041,2.3867,PNAD,V4721 (Sept)
-2005,poverty,0.1564,0.1691,7.5363,2.3169,PNAD,V4721 (Sept)
-2006,extreme,0.0428,0.0563,23.8597,2.4596,PNAD,V4721 (Sept)
-2006,poverty,0.1311,0.1465,10.5222,2.8250,PNAD,V4721 (Sept)
-2007,extreme,0.0442,0.0550,19.6801,1.9952,PNAD,V4721 (Sept)
-2007,poverty,0.1184,0.1306,9.3424,2.2493,PNAD,V4721 (Sept)
-2008,extreme,0.0374,0.0517,27.5194,2.6385,PNAD,V4721 (Sept)
-2008,poverty,0.1039,0.1205,13.8268,3.0936,PNAD,V4721 (Sept)
-2009,extreme,0.0372,0.0516,27.8818,2.6940,PNAD,V4721 (Sept)
-2009,poverty,0.0991,0.1168,15.1559,3.3157,PNAD,V4721 (Sept)
-2011,extreme,0.0368,0.0472,21.9353,1.9300,PNAD,V4721 (Sept)
-2011,poverty,0.0828,0.0995,16.8128,3.1220,PNAD,V4721 (Sept)
-2012,extreme,0.0304,0.0474,35.8331,3.2411,PNAD,V4721 (Sept)
-2012,poverty,0.0711,0.0946,24.8777,4.4878,PNAD,V4721 (Sept)
-2013,extreme,0.0330,0.0495,33.2161,3.1256,PNAD,V4721 (Sept)
-2013,poverty,0.0689,0.0871,20.8815,3.4593,PNAD,V4721 (Sept)
-2014,extreme,0.0221,0.0377,41.3373,3.0378,PNAD,V4721 (Sept)
-2014,poverty,0.0553,0.0739,25.2322,3.6370,PNAD,V4721 (Sept)
-2015,extreme,0.0276,0.0426,35.1662,2.9892,PNAD,V4721 (Sept)
-2015,poverty,0.0660,0.0817,19.2820,3.1445,PNAD,V4721 (Sept)
-2012,extreme,0.0325,0.0487,33.2962,3.1949,PNADC,habitual
-2012,poverty,0.0779,0.0974,20.0630,3.8494,PNADC,habitual
-2012,extreme,0.0376,0.0542,30.5418,3.2587,PNADC,effective
-2012,poverty,0.0832,0.1022,18.5126,3.7236,PNADC,effective
-2013,extreme,0.0266,0.0455,41.4761,3.7421,PNADC,habitual
-2013,poverty,0.0685,0.0882,22.3293,3.9072,PNADC,habitual
-2013,extreme,0.0309,0.0501,38.3011,3.8054,PNADC,effective
-2013,poverty,0.0736,0.0928,20.7080,3.8138,PNADC,effective
-2014,extreme,0.0244,0.0418,41.6226,3.4800,PNADC,habitual
-2014,poverty,0.0610,0.0792,22.9676,3.6392,PNADC,habitual
-2014,extreme,0.0284,0.0470,39.5725,3.7242,PNADC,effective
-2014,poverty,0.0666,0.0848,21.4924,3.6448,PNADC,effective
-2015,extreme,0.0282,0.0454,37.8137,3.4582,PNADC,habitual
-2015,poverty,0.0668,0.0837,20.1497,3.4012,PNADC,habitual
-2015,extreme,0.0344,0.0524,34.2382,3.6166,PNADC,effective
-2015,poverty,0.0742,0.0910,18.4239,3.3805,PNADC,effective
-2016,extreme,0.0363,0.0546,33.5977,3.7281,PNADC,habitual
-2016,poverty,0.0794,0.0967,17.9210,3.5196,PNADC,habitual
-2016,extreme,0.0428,0.0619,30.7823,3.8671,PNADC,effective
-2016,poverty,0.0870,0.1045,16.7156,3.5484,PNADC,effective
-2017,extreme,0.0421,0.0595,29.3151,3.5687,PNADC,habitual
-2017,poverty,0.0841,0.1004,16.2212,3.3302,PNADC,habitual
-2017,extreme,0.0506,0.0685,26.0160,3.6418,PNADC,effective
-2017,poverty,0.0938,0.1100,14.7367,3.3154,PNADC,effective
-2018,extreme,0.0430,0.0602,28.5982,3.5441,PNADC,habitual
-2018,poverty,0.0848,0.1007,15.7123,3.2545,PNADC,habitual
-2018,extreme,0.0526,0.0696,24.3494,3.4861,PNADC,effective
-2018,poverty,0.0955,0.1105,13.5430,3.0780,PNADC,effective
-2019,extreme,0.0432,0.0595,27.4351,3.3834,PNADC,habitual
-2019,poverty,0.0835,0.0984,15.2191,3.1034,PNADC,habitual
-2019,extreme,0.0525,0.0686,23.4755,3.3382,PNADC,effective
-2019,poverty,0.0936,0.1085,13.7216,3.0838,PNADC,effective
-2020,extreme,0.0361,0.0430,15.9270,1.4256,PNADC,habitual
-2020,poverty,0.0674,0.0743,9.3245,1.4439,PNADC,habitual
-2020,extreme,0.0417,0.0489,14.7135,1.4996,PNADC,effective
-2020,poverty,0.0770,0.0838,8.1991,1.4327,PNADC,effective
-2021,extreme,0.0553,0.0674,18.0136,2.5419,PNADC,habitual
-2021,poverty,0.1027,0.1127,8.8584,2.0889,PNADC,habitual
-2021,extreme,0.0610,0.0737,17.1930,2.6507,PNADC,effective
-2021,poverty,0.1112,0.1206,7.8149,1.9733,PNADC,effective
-2022,extreme,0.0245,0.0593,58.6359,7.2980,PNADC,habitual
-2022,poverty,0.0624,0.0946,34.0186,6.7611,PNADC,habitual
-2022,extreme,0.0296,0.0674,56.1739,7.9574,PNADC,effective
-2022,poverty,0.0704,0.1030,31.6924,6.8588,PNADC,effective
-2023,extreme,0.0174,0.0676,74.2964,10.5948,PNADC,habitual
-2023,poverty,0.0513,0.1021,49.7806,10.7173,PNADC,habitual
-2023,extreme,0.0209,0.0757,72.4325,11.5648,PNADC,effective
-2023,poverty,0.0587,0.1105,46.8491,10.9149,PNADC,effective
-2024,extreme,0.0149,0.0578,74.1382,9.0705,PNADC,habitual
-2024,poverty,0.0411,0.0881,53.3057,9.9472,PNADC,habitual
-2024,extreme,0.0180,0.0653,72.4959,10.0311,PNADC,effective
-2024,poverty,0.0479,0.0957,49.9550,10.1253,PNADC,effective
-2025,extreme,0.0149,0.0560,73.4272,8.7400,PNADC,habitual
-2025,poverty,0.0412,0.0833,50.6057,8.9671,PNADC,habitual
-2025,extreme,0.0180,0.0630,71.4396,9.5725,PNADC,effective
-2025,poverty,0.0477,0.0905,47.2665,9.0934,PNADC,effective
+year,survey,spec,label,main,concept,line,line_value,rate_without_bf,rate_with_bf,pct_reduction,pp_reduction,persons_lifted_M,recipients_M
+2001,PNAD,souza2019,primary,True,V4721 (Sept),extreme,30.5741,0.0797,0.0770,3.3174,0.2642,0.4443,1.5309
+2001,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,30.5741,0.0827,0.0770,6.8863,0.5696,0.9576,2.5456
+2001,PNAD,souza2019,primary,True,V4721 (Sept),poverty,61.1481,0.2064,0.2043,0.9832,0.2029,0.3411,1.5309
+2001,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,61.1481,0.2081,0.2043,1.8002,0.3746,0.6298,2.5456
+2002,PNAD,souza2019,primary,True,V4721 (Sept),extreme,33.5031,0.0703,0.0652,7.2248,0.5077,0.8672,2.7961
+2002,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,33.5031,0.0726,0.0652,10.2515,0.7446,1.2720,4.0634
+2002,PNAD,souza2019,primary,True,V4721 (Sept),poverty,67.0062,0.1974,0.1942,1.5863,0.3131,0.5348,2.7961
+2002,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,67.0062,0.1999,0.1942,2.8571,0.5713,0.9759,4.0634
+2003,PNAD,souza2019,primary,True,V4721 (Sept),extreme,39.3706,0.0744,0.0687,7.7414,0.5763,0.9968,5.9198
+2003,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,39.3706,0.0753,0.0687,8.8167,0.6641,1.1487,6.1633
+2003,PNAD,souza2019,primary,True,V4721 (Sept),poverty,78.7411,0.2011,0.1960,2.5241,0.5075,0.8779,5.9198
+2003,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,78.7411,0.2020,0.1960,2.9641,0.5987,1.0356,6.1633
+2004,PNAD,souza2019,primary,True,V4721 (Sept),extreme,41.7147,0.0709,0.0589,16.9406,1.2010,2.1431,7.8150
+2004,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,41.7147,0.0731,0.0589,19.4941,1.4259,2.5443,8.6152
+2004,PNAD,souza2019,primary,True,V4721 (Sept),poverty,83.4295,0.1884,0.1775,5.7519,1.0834,1.9333,7.8150
+2004,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,83.4295,0.1909,0.1775,7.0286,1.3421,2.3948,8.6152
+2005,PNAD,souza2019,primary,True,V4721 (Sept),extreme,43.7979,0.0628,0.0521,17.1478,1.0776,1.9591,6.1206
+2005,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,43.7979,0.0651,0.0521,20.0614,1.3067,2.3755,6.9792
+2005,PNAD,souza2019,primary,True,V4721 (Sept),poverty,87.5958,0.1696,0.1590,6.2792,1.0651,1.9363,6.1206
+2005,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,87.5958,0.1721,0.1590,7.6058,1.3086,2.3791,6.9792
+2006,PNAD,souza2019,primary,True,V4721 (Sept),extreme,45.0524,0.0559,0.0440,21.2544,1.1888,2.1782,8.4451
+2006,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,45.0524,0.0571,0.0440,22.8069,1.3013,2.3843,8.4762
+2006,PNAD,souza2019,primary,True,V4721 (Sept),poverty,90.1048,0.1497,0.1335,10.8604,1.6260,2.9793,8.4451
+2006,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,90.1048,0.1503,0.1335,11.1865,1.6810,3.0800,8.4762
+2007,PNAD,souza2019,primary,True,V4721 (Sept),extreme,47.2672,0.0542,0.0442,18.4613,1.0008,1.8443,6.0742
+2007,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,47.2672,0.0550,0.0442,19.6497,1.0810,1.9921,6.1344
+2007,PNAD,souza2019,primary,True,V4721 (Sept),poverty,94.5344,0.1301,0.1187,8.7248,1.1350,2.0916,6.0742
+2007,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,94.5344,0.1308,0.1187,9.2534,1.2108,2.2312,6.1344
+2008,PNAD,souza2019,primary,True,V4721 (Sept),extreme,50.5962,0.0511,0.0377,26.1261,1.3338,2.4759,7.4413
+2008,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,50.5962,0.0517,0.0377,27.0062,1.3954,2.5901,7.8759
+2008,PNAD,souza2019,primary,True,V4721 (Sept),poverty,101.1925,0.1198,0.1041,13.1004,1.5696,2.9136,7.4413
+2008,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,101.1925,0.1208,0.1041,13.8436,1.6730,3.1055,7.8759
+2009,PNAD,souza2019,primary,True,V4721 (Sept),extreme,52.8458,0.0510,0.0373,26.8504,1.3700,2.5651,7.7601
+2009,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,52.8458,0.0516,0.0373,27.6960,1.4297,2.6768,8.3304
+2009,PNAD,souza2019,primary,True,V4721 (Sept),poverty,105.6916,0.1157,0.0997,13.8855,1.6069,3.0086,7.7601
+2009,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,105.6916,0.1169,0.0997,14.7805,1.7284,3.2361,8.3304
+2011,PNAD,souza2019,primary,True,V4721 (Sept),extreme,59.3573,0.0477,0.0369,22.6229,1.0790,2.0128,9.1540
+2011,PNAD,tv,sensitivity,False,V4721 (Sept),extreme,59.3573,0.0472,0.0369,21.7575,1.0262,1.9144,7.9985
+2011,PNAD,souza2019,primary,True,V4721 (Sept),poverty,118.7146,0.1004,0.0833,16.9743,1.7038,3.1784,9.1540
+2011,PNAD,tv,sensitivity,False,V4721 (Sept),poverty,118.7146,0.0996,0.0833,16.3436,1.6281,3.0373,7.9985
+2012,PNAD,souza2019,primary,True,V4721 (Sept),extreme,62.6671,0.0435,0.0305,29.9180,1.3025,2.4834,9.7491
+2012,PNAD,tvb,sensitivity,False,V4721 (Sept),extreme,62.6671,0.0474,0.0305,35.6841,1.6928,3.2276,11.9195
+2012,PNAD,souza2019,primary,True,V4721 (Sept),poverty,125.3342,0.0917,0.0712,22.3232,2.0463,3.9018,9.7491
+2012,PNAD,tvb,sensitivity,False,V4721 (Sept),poverty,125.3342,0.0946,0.0712,24.7543,2.3425,4.4665,11.9195
+2012,PNADC,effective,primary,True,effective,extreme,62.0030,0.0543,0.0378,30.4405,1.6521,3.2528,10.1490
+2012,PNADC,habitual,sensitivity,False,habitual,extreme,62.0030,0.0489,0.0325,33.4247,1.6335,3.2162,10.1490
+2012,PNADC,effective,primary,True,effective,poverty,124.0060,0.1024,0.0835,18.3840,1.8819,3.7053,10.1490
+2012,PNADC,habitual,sensitivity,False,habitual,poverty,124.0060,0.0975,0.0781,19.9717,1.9480,3.8355,10.1490
+2013,PNAD,souza2019,primary,True,V4721 (Sept),extreme,66.2320,0.0470,0.0330,29.6179,1.3906,2.6461,10.8076
+2013,PNAD,tvb,sensitivity,False,V4721 (Sept),extreme,66.2320,0.0495,0.0330,33.1768,1.6407,3.1219,11.4124
+2013,PNAD,souza2019,primary,True,V4721 (Sept),poverty,132.4641,0.0857,0.0689,19.6321,1.6831,3.2026,10.8076
+2013,PNAD,tvb,sensitivity,False,V4721 (Sept),poverty,132.4641,0.0871,0.0689,20.9126,1.8219,3.4668,11.4124
+2013,PNADC,effective,primary,True,effective,extreme,65.9532,0.0501,0.0309,38.3480,1.9228,3.8162,10.2308
+2013,PNADC,habitual,sensitivity,False,habitual,extreme,65.9532,0.0455,0.0267,41.3396,1.8812,3.7335,10.2308
+2013,PNADC,effective,primary,True,effective,poverty,131.9064,0.0931,0.0738,20.6897,1.9264,3.8232,10.2308
+2013,PNADC,habitual,sensitivity,False,habitual,poverty,131.9064,0.0883,0.0686,22.2728,1.9665,3.9029,10.2308
+2014,PNAD,souza2019,primary,True,V4721 (Sept),extreme,70.5954,0.0361,0.0222,38.5263,1.3909,2.7111,11.2940
+2014,PNAD,tvb,sensitivity,False,V4721 (Sept),extreme,70.5954,0.0377,0.0222,41.1345,1.5509,3.0229,11.6066
+2014,PNAD,souza2019,primary,True,V4721 (Sept),poverty,141.1907,0.0733,0.0553,24.4934,1.7949,3.4986,11.2940
+2014,PNAD,tvb,sensitivity,False,V4721 (Sept),poverty,141.1907,0.0740,0.0553,25.1877,1.8629,3.6312,11.6066
+2014,PNADC,effective,primary,True,effective,extreme,69.9347,0.0472,0.0286,39.4313,1.8601,3.7212,10.1172
+2014,PNADC,habitual,sensitivity,False,habitual,extreme,69.9347,0.0418,0.0244,41.6536,1.7428,3.4866,10.1172
+2014,PNADC,effective,primary,True,effective,poverty,139.8695,0.0850,0.0667,21.5210,1.8298,3.6606,10.1172
+2014,PNADC,habitual,sensitivity,False,habitual,poverty,139.8695,0.0793,0.0611,22.9389,1.8193,3.6396,10.1172
+2015,PNAD,souza2019,primary,True,V4721 (Sept),extreme,77.5869,0.0416,0.0278,33.1174,1.3787,2.7520,10.3215
+2015,PNAD,tvb,sensitivity,False,V4721 (Sept),extreme,77.5869,0.0426,0.0278,34.6387,1.4757,2.9454,10.4718
+2015,PNAD,souza2019,primary,True,V4721 (Sept),poverty,155.1739,0.0818,0.0661,19.1496,1.5658,3.1253,10.3215
+2015,PNAD,tvb,sensitivity,False,V4721 (Sept),poverty,155.1739,0.0818,0.0661,19.1942,1.5703,3.1343,10.4718
+2015,PNADC,effective,primary,True,effective,extreme,76.4634,0.0525,0.0346,34.0162,1.7850,3.5994,9.6661
+2015,PNADC,habitual,sensitivity,False,habitual,extreme,76.4634,0.0454,0.0283,37.5878,1.7061,3.4402,9.6661
+2015,PNADC,effective,primary,True,effective,poverty,152.9268,0.0913,0.0746,18.3774,1.6786,3.3849,9.6661
+2015,PNADC,habitual,sensitivity,False,habitual,poverty,152.9268,0.0840,0.0673,19.9021,1.6713,3.3702,9.6661
+2016,PNADC,effective,primary,True,effective,extreme,83.5911,0.0619,0.0430,30.5082,1.8884,3.8356,10.1211
+2016,PNADC,habitual,sensitivity,False,habitual,extreme,83.5911,0.0547,0.0367,32.9177,1.8009,3.6578,10.1211
+2016,PNADC,effective,primary,True,effective,poverty,167.1822,0.1046,0.0874,16.4682,1.7223,3.4983,10.1211
+2016,PNADC,habitual,sensitivity,False,habitual,poverty,167.1822,0.0969,0.0797,17.7560,1.7200,3.4935,10.1211
+2017,PNADC,effective,primary,True,effective,extreme,86.0730,0.0685,0.0509,25.6685,1.7584,3.5955,9.7778
+2017,PNADC,habitual,sensitivity,False,habitual,extreme,86.0730,0.0597,0.0422,29.3779,1.7534,3.5854,9.7778
+2017,PNADC,effective,primary,True,effective,poverty,172.1460,0.1101,0.0940,14.6491,1.6132,3.2986,9.7778
+2017,PNADC,habitual,sensitivity,False,habitual,poverty,172.1460,0.1006,0.0843,16.1588,1.6248,3.3223,9.7778
+2018,PNADC,effective,primary,True,effective,extreme,88.5460,0.0696,0.0528,24.2260,1.6868,3.4707,9.9854
+2018,PNADC,habitual,sensitivity,False,habitual,extreme,88.5460,0.0603,0.0431,28.4243,1.7132,3.5251,9.9854
+2018,PNADC,effective,primary,True,effective,poverty,177.0921,0.1107,0.0957,13.6127,1.5072,3.1013,9.9854
+2018,PNADC,habitual,sensitivity,False,habitual,poverty,177.0921,0.1007,0.0850,15.6519,1.5767,3.2442,9.9854
+2019,PNADC,effective,primary,True,effective,extreme,91.8698,0.0687,0.0527,23.2636,1.5991,3.3124,10.0063
+2019,PNADC,habitual,sensitivity,False,habitual,extreme,91.8698,0.0596,0.0434,27.2617,1.6256,3.3672,10.0063
+2019,PNADC,effective,primary,True,effective,poverty,183.7396,0.1088,0.0939,13.6727,1.4872,3.0807,10.0063
+2019,PNADC,habitual,sensitivity,False,habitual,poverty,183.7396,0.0987,0.0836,15.2528,1.5051,3.1177,10.0063
+2020,PNADC,effective,primary,True,effective,extreme,95.1899,0.0489,0.0417,14.7312,0.7208,1.5021,5.1223
+2020,PNADC,habitual,sensitivity,False,habitual,extreme,95.1899,0.0430,0.0361,15.9137,0.6835,1.4245,5.1223
+2020,PNADC,effective,primary,True,effective,poverty,190.3798,0.0839,0.0771,8.1201,0.6814,1.4200,5.1223
+2020,PNADC,habitual,sensitivity,False,habitual,poverty,190.3798,0.0743,0.0674,9.2908,0.6907,1.4393,5.1223
+2021,PNADC,effective,primary,True,effective,extreme,103.7477,0.0737,0.0611,17.1732,1.2661,2.6503,6.0936
+2021,PNADC,habitual,sensitivity,False,habitual,extreme,103.7477,0.0681,0.0557,18.0847,1.2307,2.5762,6.0936
+2021,PNADC,effective,primary,True,effective,poverty,207.4953,0.1209,0.1115,7.8080,0.9442,1.9765,6.0936
+2021,PNADC,habitual,sensitivity,False,habitual,poverty,207.4953,0.1141,0.1036,9.2493,1.0556,2.2096,6.0936
+2022,PNADC,effective,primary,True,effective,extreme,113.5296,0.0675,0.0297,56.0345,3.7804,7.9407,12.8597
+2022,PNADC,habitual,sensitivity,False,habitual,extreme,113.5296,0.0593,0.0246,58.5517,3.4694,7.2875,12.8597
+2022,PNADC,effective,primary,True,effective,poverty,227.0592,0.1031,0.0705,31.6752,3.2667,6.8617,12.8597
+2022,PNADC,habitual,sensitivity,False,habitual,poverty,227.0592,0.0947,0.0625,34.0324,3.2238,6.7715,12.8597
+2023,PNADC,effective,primary,True,effective,extreme,118.2399,0.0757,0.0209,72.4223,5.4839,11.5665,14.3716
+2023,PNADC,habitual,sensitivity,False,habitual,extreme,118.2399,0.0677,0.0174,74.2831,5.0266,10.6020,14.3716
+2023,PNADC,effective,primary,True,effective,poverty,236.4799,0.1105,0.0588,46.8142,5.1726,10.9100,14.3716
+2023,PNADC,habitual,sensitivity,False,habitual,poverty,236.4799,0.1023,0.0515,49.6732,5.0793,10.7131,14.3716
+2024,PNADC,effective,primary,True,effective,extreme,122.9143,0.0653,0.0180,72.4986,4.7369,10.0324,14.3876
+2024,PNADC,habitual,sensitivity,False,habitual,extreme,122.9143,0.0579,0.0150,74.0546,4.2857,9.0768,14.3876
+2024,PNADC,effective,primary,True,effective,poverty,245.8285,0.0957,0.0479,49.9576,4.7812,10.1263,14.3876
+2024,PNADC,habitual,sensitivity,False,habitual,poverty,245.8285,0.0883,0.0413,53.1612,4.6921,9.9376,14.3876
+2025,PNADC,effective,primary,True,effective,extreme,128.8306,0.0630,0.0180,71.4143,4.5017,9.5717,13.6376
+2025,PNADC,habitual,sensitivity,False,habitual,extreme,128.8306,0.0560,0.0149,73.4275,4.1106,8.7402,13.6376
+2025,PNADC,effective,primary,True,effective,poverty,257.6612,0.0905,0.0477,47.2655,4.2796,9.0994,13.6376
+2025,PNADC,habitual,sensitivity,False,habitual,poverty,257.6612,0.0834,0.0412,50.5993,4.2216,8.9760,13.6376

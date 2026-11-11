@@ -1,21 +1,21 @@
 year,survey,detail,recipients_M,survey_Rbn_year,admin_Rbn_year,admin_type,admin_source,survey_over_admin
-2001,PNAD,tv,2.546,1.182,,,,
-2002,PNAD,tv,4.063,1.835,,,,
-2003,PNAD,tv,6.163,2.556,,,,
-2004,PNAD,tv,8.615,4.902,5.300,secondary,Redalyc article '18 anos de progresso' (cites ~R$5.3 bn in 2004),0.925
-2005,PNAD,tv,6.979,4.883,,,,
-2006,PNAD,tv,8.476,6.023,,,,
-2007,PNAD,tv,6.134,5.332,,,,
-2008,PNAD,tv,7.876,7.770,,,,
-2009,PNAD,tv,8.330,9.158,,,,
-2011,PNAD,tv,7.998,10.957,,,,
-2012,PNAD,tvb,11.919,18.234,,,,
+2001,PNAD,souza2019,1.531,0.430,,,,
+2002,PNAD,souza2019,2.796,0.798,,,,
+2003,PNAD,souza2019,5.920,1.861,,,,
+2004,PNAD,souza2019,7.815,3.588,5.300,secondary,Redalyc article '18 anos de progresso' (cites ~R$5.3 bn in 2004),0.677
+2005,PNAD,souza2019,6.121,3.484,,,,
+2006,PNAD,souza2019,8.445,5.587,,,,
+2007,PNAD,souza2019,6.074,5.033,,,,
+2008,PNAD,souza2019,7.441,6.964,,,,
+2009,PNAD,souza2019,7.760,8.024,,,,
+2011,PNAD,souza2019,9.154,11.762,,,,
+2012,PNAD,souza2019,9.749,14.599,,,,
 2012,PNADC,visit1 V501011,10.149,15.812,,,,
-2013,PNAD,tvb,11.412,19.404,24.500,secondary,academic paper cited in web search (R$24.5 bn spent in 2013),0.792
+2013,PNAD,souza2019,10.808,18.094,24.500,secondary,academic paper cited in web search (R$24.5 bn spent in 2013),0.739
 2013,PNADC,visit1 V501011,10.231,18.356,24.500,secondary,academic paper cited in web search (R$24.5 bn spent in 2013),0.749
-2014,PNAD,tvb,11.607,21.491,25.300,secondary,MDS budget figure cited in Neder (AgEcon Search): R$25.3 bn presented for 2014,0.849
+2014,PNAD,souza2019,11.294,20.810,25.300,secondary,MDS budget figure cited in Neder (AgEcon Search): R$25.3 bn presented for 2014,0.823
 2014,PNADC,visit1 V501011,10.117,19.458,25.300,secondary,MDS budget figure cited in Neder (AgEcon Search): R$25.3 bn presented for 2014,0.769
-2015,PNAD,tvb,10.472,19.271,26.400,secondary,World Bank blog 'Protegendo os novos pobres' (R$26.4 bn in 2015),0.730
+2015,PNAD,souza2019,10.322,18.898,26.400,secondary,World Bank blog 'Protegendo os novos pobres' (R$26.4 bn in 2015),0.716
 2015,PNADC,"visit1 V5002A2,V501011",9.666,19.457,26.400,secondary,World Bank blog 'Protegendo os novos pobres' (R$26.4 bn in 2015),0.737
 2016,PNADC,visit1 V5002A2,10.121,20.652,,,,
 2017,PNADC,visit1 V5002A2,9.778,20.590,,,,

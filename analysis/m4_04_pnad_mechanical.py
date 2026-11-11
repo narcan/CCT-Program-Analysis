@@ -2,7 +2,12 @@
 
 1. Validates the BF identification rules against the direct receipt
    questions in the 2004 and 2006 supplements.
-2. Poverty with and without BF income, every PNAD year, three rules.
+2. Poverty with and without BF income, every PNAD year, four rules.
+
+Primary rule (since the M4 correction, 2026-11-11): "souza2019", the
+household rule of Souza, Osorio, Paiva & Soares (2019, TD 2499, appendix
+1.3). The person-level rules "tv"/"tvb" (the rule M4 first reported) and
+"lt_mw" (an upper bound) are kept as sensitivities.
 
 Run: python analysis/m4_04_pnad_mechanical.py
 Outputs: output/M4/pnad_validation.csv, output/M4/pnad_poverty.csv
@@ -19,8 +24,8 @@ from cct import pnad  # noqa: E402
 
 OUT = pnad.ROOT / "output" / "M4"
 YEARS = sorted(pnad.PNAD_URLS)
-RULES = ["tv", "tvb", "lt_mw"]
-MAIN_RULE = {y: ("tvb" if y in m.BSP_YEARS else "tv") for y in YEARS}
+RULES = ["souza2019", "tv", "tvb", "lt_mw"]
+MAIN_RULE = {y: "souza2019" for y in YEARS}
 
 
 def self_report(dom: pd.DataFrame, year: int) -> pd.DataFrame:

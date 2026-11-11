@@ -9,12 +9,15 @@ Two pieces:
    2007/2010; Souza, Osorio & Soares 2011, IPEA TD 1654; Souza, Osorio,
    Paiva & Soares 2019, IPEA TD 2499): a value in V1273 is classified as a
    programme transfer when it equals a benefit amount that the programme
-   rules made possible in the reference month (September). The exact
-   implementation rules in TD 2499 could not be read from this environment
-   (the IPEA site is blocked), so the rule sets below are reconstructed from
-   the benefit schedules in the laws and decrees, and offered in variants
-   that are validated against the direct receipt questions in the 2004 and
-   2006 supplements and against PNAD Continua for 2012-2015.
+   rules made possible in the reference month (September). The person-level
+   rule sets ("tv", "tvb", "lt_mw") were reconstructed from the benefit
+   schedules before TD 2499 could be read, and are validated against the
+   direct receipt questions in the 2004 and 2006 supplements and against
+   PNAD Continua for 2012-2015. TD 2499's own rule (appendix 1.3) is a
+   household-level variant, implemented as rule "souza2019" below; see
+   output/M4/M4_income_check.md. Since the M4 correction (2026-11-11)
+   "souza2019" is the default and primary rule; the person-level rules are
+   kept as sensitivities.
 
 2. Poverty with and without BF income: weighted headcount (FGT0) of persons
    whose household per-capita income is at or below a line.
@@ -185,15 +188,83 @@ def flag_bf_pnad(v1273: pd.Series, year: int, rule: str = "tv") -> pd.Series:
 
 
 # --------------------------------------------------------------------------
+# Souza, Osorio, Paiva & Soares (2019, TD 2499, appendix 1.3): household rule
+# --------------------------------------------------------------------------
+# TD 2499 (read in full, 2026-11-11) identifies BF in V1273 in two steps:
+#   1. person values between 98% and 102% of the minimum wage are BPC;
+#   2. the remaining "other income" is summed over the household, and the
+#      sum counts as BF when it lies between the legal minimum and maximum
+#      benefit for that family, given its demographic composition. Up to
+#      2006 the predecessor programmes are included.
+# TD 2499 does not print the bounds; the ones below are our reading of the
+# benefit rules (see the module docstring). In BSP years the top-up can
+# bring a zero-income family up to the extreme-poverty eligibility line,
+# so the maximum is at least that line x household size.
+BSP_ELIGIBILITY_LINE = {2012: 70, 2013: 70, 2014: 77, 2015: 77}
+
+
+def souza2019_bounds(year: int, n0_6, n6_15, n16_17, n_members):
+    """Legal (min, max) monthly household benefit, TD 2499 rule.
+    Arguments are arrays of household counts (children aged 0-6, 6-15,
+    16-17 and all members)."""
+    n0_6, n6_15, n16_17, n = (np.asarray(a, dtype=float)
+                              for a in (n0_6, n6_15, n16_17, n_members))
+    n0_15 = np.minimum(n0_6 + n6_15, n)  # a 6-year-old is in both counts
+    bf_max = np.zeros_like(n)
+    mins = []
+    for p in (BF_PARAMS.get(year), BF_PREV.get(year)):
+        if p is None:
+            continue
+        basic, var, kmax, bvj, jmax = p
+        bf_max = np.maximum(bf_max, basic + var * np.minimum(n0_15, kmax)
+                            + bvj * np.minimum(n16_17, jmax))
+        mins.append(var)
+    pred_max = np.zeros_like(n)
+    if year <= 2006:
+        pred_max = (15 * np.minimum(n6_15, 3) + 15 * np.minimum(n0_6, 3)
+                    + (7.5 if year >= 2002 else 0) + (50 if year >= 2003 else 0))
+        mins.append(7 if year >= 2002 else 15)   # auxilio gas R$7.50
+    mx = np.maximum(bf_max, pred_max)
+    if year in BSP_ELIGIBILITY_LINE:
+        bsp = BSP_ELIGIBILITY_LINE[year] * n + 2
+        if year == 2012:  # Sept 2012: BSP only for families with children 0-6
+            bsp = np.where(n0_6 > 0, bsp, 0)
+        mx = np.maximum(mx, bsp)
+    mn = float(min(mins)) if mins else np.inf
+    return np.full_like(n, mn), np.ceil(mx)
+
+
+def bf_household_souza2019(df: pd.DataFrame, year: int) -> pd.Series:
+    """Household BF amount (repeated on each member row) under the TD 2499
+    rule. `df` holds household members only, with columns hh, v1273
+    (cleaned, NaN allowed) and V8005 (age)."""
+    v = df["v1273"].fillna(0.0)
+    mw = MIN_WAGE[year]
+    other = v.where(~v.between(0.98 * mw, 1.02 * mw), 0.0)
+    age = pd.to_numeric(df["V8005"], errors="coerce")
+    tmp = pd.DataFrame({"hh": df["hh"], "other": other,
+                        "a0_6": age.between(0, 6), "a6_15": age.between(6, 15),
+                        "a16_17": age.between(16, 17)})
+    h = tmp.groupby("hh").agg(other=("other", "sum"), n=("hh", "size"),
+                              a0_6=("a0_6", "sum"), a6_15=("a6_15", "sum"),
+                              a16_17=("a16_17", "sum"))
+    mn, mx = souza2019_bounds(year, h["a0_6"], h["a6_15"], h["a16_17"], h["n"])
+    h["bf"] = np.where((h["other"] >= mn) & (h["other"] <= mx), h["other"], 0.0)
+    return df["hh"].map(h["bf"]).astype(float)
+
+
+# --------------------------------------------------------------------------
 # Poverty lines
 # --------------------------------------------------------------------------
 # Souza et al. (2019, TD 2499) measure poverty with fixed real lines equal to
 # the BF eligibility lines of 2018: R$89 (extreme poverty) and R$178
 # (poverty) per person per month, in force from July 2018 (Decreto
-# 9.396/2018), deflated with the INPC.
+# 9.396/2018), deflated with the INPC. TD 2499 (appendix 1.5) sets them in
+# June 2018 reais, so the base is June 2018 (the M4 summary used July 2018
+# before TD 2499 could be read; see output/M4/M4_income_check.md).
 LINE_EXTREME_2018 = 89.0
 LINE_POVERTY_2018 = 178.0
-LINE_BASE = (2018, 7)
+LINE_BASE = (2018, 6)
 
 
 def fgt0(pc_income: np.ndarray, weight: np.ndarray, line: float) -> float:
@@ -219,7 +290,7 @@ def poverty_table(pc_with: np.ndarray, pc_without: np.ndarray,
 # --------------------------------------------------------------------------
 # PNAD: person-level frame with per-capita income with and without BF
 # --------------------------------------------------------------------------
-def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "tv") -> pd.DataFrame:
+def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "souza2019") -> pd.DataFrame:
     """One row per household member (IBGE definition: condition in household
     1-5, i.e. excluding boarders, domestic workers and their relatives),
     with household per-capita income with and without imputed BF income.
@@ -228,6 +299,10 @@ def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "tv") -> pd.Data
     members). Households with undeclared income for any member (V4721
     missing or coded 999999999999) are dropped, as in IBGE's own per-capita
     tabulations. pc income = V4721 / number of members.
+
+    rule: "souza2019" (default; household-level rule of TD 2499, the
+    primary specification since the M4 correction) or the person-level
+    sensitivity rules "tv", "tvb", "lt_mw" (see flag_bf_pnad).
     """
     from .pnad import clean_income, household_members
 
@@ -238,11 +313,20 @@ def pnad_person_frame(pes: pd.DataFrame, year: int, rule: str = "tv") -> pd.Data
     df["hh_income"] = clean_income(df["V4721"])
     v = clean_income(df["V1273"]) if "V1273" in df else pd.Series(np.nan, index=df.index)
     df["v1273"] = v
-    df["bf_flag"] = flag_bf_pnad(v, year, rule)
-    df["bf_value"] = np.where(df["bf_flag"], v, 0.0)
     g = df.groupby("hh")
     df["n_members"] = g["hh"].transform("size")
-    df["hh_bf"] = g["bf_value"].transform("sum")
+    if rule == "souza2019":
+        # household-level rule of TD 2499; bf_flag marks members whose
+        # (non-BPC) V1273 value is part of an identified household amount
+        df["hh_bf"] = bf_household_souza2019(df, year)
+        mw = MIN_WAGE[year]
+        own = (v > 0) & ~v.between(0.98 * mw, 1.02 * mw)
+        df["bf_flag"] = (own & (df["hh_bf"] > 0)).fillna(False)
+        df["bf_value"] = np.where(df["bf_flag"], v, 0.0)
+    else:
+        df["bf_flag"] = flag_bf_pnad(v, year, rule)
+        df["bf_value"] = np.where(df["bf_flag"], v, 0.0)
+        df["hh_bf"] = df.groupby("hh")["bf_value"].transform("sum")
     df["v1273_0"] = df["v1273"].fillna(0.0)
     df["hh_other"] = df.groupby("hh")["v1273_0"].transform("sum")
     df["pc_with"] = df["hh_income"] / df["n_members"]

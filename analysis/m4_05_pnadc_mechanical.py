@@ -1,6 +1,10 @@
 """M4: Bolsa Familia mechanical effect in PNAD Continua (annual visit files)
 and the 2017 benchmark against Souza, Osorio, Paiva & Soares (2019).
 
+Primary income concept (since the M4 correction, 2026-11-11): "effective"
+(VD5002), which reproduces TD 2499's 2016-2017 levels; "habitual" (VD5008)
+is kept as a labelled sensitivity (column `main` is False for it).
+
 Run: python analysis/m4_05_pnadc_mechanical.py
 Outputs: output/M4/pnadc_poverty.csv, output/M4/benchmark_2017.csv
 """
@@ -20,6 +24,9 @@ from m4_03_build_pnadc import PLAN  # noqa: E402
 
 OUT = ROOT / "output" / "M4"
 
+MAIN_CONCEPT = "effective"
+CONCEPTS = ("effective", "habitual")
+
 # Published benchmark (TD 2499, abstract and summary): in 2017 BF reduced
 # extreme poverty by 25% and poverty by 15%; it lifted 3.4 million people
 # out of extreme poverty and 3.2 million out of poverty.
@@ -38,6 +45,7 @@ def one(year: int, visit: int, concept: str) -> pd.DataFrame:
                              for z in t["line_value"]]
     rec = f[f["bf_value"] > 0]
     t["year"], t["visit"], t["concept"] = year, visit, concept
+    t["main"] = concept == MAIN_CONCEPT
     t["bf_item"] = ",".join(sorted(f["bf_item"].unique()))
     t["share_new_item"] = float(np.average(f["bf_item"] == "V5002A2", weights=w))
     t["recipients_M"] = rec["weight"].sum() / 1e6
@@ -50,7 +58,7 @@ if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     rows = []
     for y, v in PLAN:
-        for concept in ("habitual", "effective"):
+        for concept in CONCEPTS:
             t = one(y, v, concept)
             rows.append(t)
             print(y, v, concept, t[["line", "pct_reduction"]].round(1).values.tolist(), flush=True)
