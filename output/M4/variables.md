@@ -46,8 +46,8 @@ annual file for 2020 and 2021).
 | V5002A / V5002A2 | "Recebeu Bolsa Familia" / value received | New questionnaire, **first available Q4 2015** (full year from 2016) |
 | V5001A / V5001A2 | BPC-LOAS receipt / value | Q4 2015 on |
 | V5003A / V5003A2 | Other social programme receipt / value | Q4 2015 on |
-| VD5008 | Habitual household per-capita income (habitual work income plus effective other income; excludes pensioners, domestic workers and their relatives) | all years |
-| VD5002 | Effective household per-capita income | all years |
+| VD5008 | Habitual household per-capita income (habitual work income plus effective other income; excludes pensioners, domestic workers and their relatives). Sensitivity only since the M4 correction | all years |
+| VD5002 | Effective household per-capita income. **Primary concept** since the M4 correction (matches Souza et al. 2019 in 2016-2017) | all years |
 | V2005 | Condition in household (17-19 excluded from per-capita income) | all years |
 | V1032 | Person weight (calibrated) | all years |
 | UPA + V1008 + V1014 | Household identifier | all years |
